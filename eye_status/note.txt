@@ -1,0 +1,10 @@
+python 3.12
+dataset 下載連結: https://drive.google.com/file/d/1DiZcMYDxUQxjkY95QPKNm8reYsSG7oYJ/view?usp=drive_link
+project
+├── main.py
+├── model.py
+├── utils.py
+├── eye_images/
+├── labels.csv
+└── test/
+需要測試的話需要把檔案放成這個樣子
