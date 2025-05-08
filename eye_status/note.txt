@@ -7,4 +7,4 @@ project
 ├── eye_images/
 ├── labels.csv
 └── test/
-需要測試的話需要把檔案放成這個樣子
+需要測試的話需要把檔案放成這個樣子 我寫完有用AI去做除錯 所以會很多try except跟一些註解

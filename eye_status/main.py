@@ -6,7 +6,7 @@ from torch.utils.data import DataLoader
 from torchvision import transforms
 
 if __name__ == '__main__':
-    # Step 1: Load pre-extracted eye images and labels
+    # Step 1: Load eye images and labels
     print("\n===== Step 1: Loading eye images and labels =====")
     eye_image_dir = 'eye_images'
     label_file = 'labels.csv'
