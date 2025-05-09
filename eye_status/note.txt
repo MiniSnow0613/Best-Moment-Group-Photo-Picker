@@ -1,0 +1,5 @@
+可以看一夏 main裡面的東西
+然後需要先load model跟啟動Mediapipe Face Mesh
+image.png就換成你們需要的檔案 
+我覺得到時候可以先用一個load所有模型跟必要的東西的檔案 
+我先不改你們寫的檔案 
