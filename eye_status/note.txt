@@ -1,3 +1,5 @@
+要測試我的寫的東西的話 要職揭開我這個資料夾 不能再best momnet group photo 的資料夾裡面開
+
 可以看一夏 main裡面的東西
 然後需要先load model跟啟動Mediapipe Face Mesh
 image.png就換成你們需要的檔案 
