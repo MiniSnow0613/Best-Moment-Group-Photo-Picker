@@ -4,6 +4,9 @@ from PIL import Image, ImageTk
 import cv2
 
 def get_face_weights_gui(face_imgs):
+
+    print("請設定每張人臉的權重")
+
     # 主視窗
     root = tk.Tk()
     root.title("設定每張人臉的權重")
