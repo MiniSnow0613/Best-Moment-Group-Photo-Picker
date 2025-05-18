@@ -2,8 +2,9 @@
 
 ## blur_detection
 
-執行順序如下：
+函式在blur_detection裡面了
+
+執行：
 
 ```bash
-python .\bluring_picture.py
-python .\blur_detection.py
+python .\main.py
