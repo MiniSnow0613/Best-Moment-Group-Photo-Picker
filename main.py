@@ -5,8 +5,9 @@ from composition_analysis.analyzer import score_photo
 from utils.mediapipe_utils import initialize_face_mesh
 from eye_status_detection.model import load_model, infer_openness
 from gaze_detection.gaze import predict_gaze_score
+from blur_detection.model import compute_blur_score, blur_score_to_100
 
-img_path = "002.jpg" # 換成要計算的照片
+img_path = "grup_image.jpg" # 換成要計算的照片
 faces, _ = detect_and_crop_faces(img_path) # 人臉圖片
 weights = get_face_weights_gui(faces) # 權重
 
@@ -30,8 +31,6 @@ for i, (face_img, w) in enumerate(zip(faces, weights)):
     eye_score = infer_openness(eye_model, face_img, face_mesh, image_name=f"face_{i}")
     print(f"閉眼分數：{eye_score['score']:.2f}")
 
-    # blur_detection
-
     # gaze_detection
     gaze_score = 100 * predict_gaze_score(face_img, face_mesh)
     print(f"視線分數：{gaze_score:.2f}")
@@ -45,8 +44,17 @@ total_smile_score = total_smile_weighted_score / total_weight if total_weight > 
 total_gaze_score = total_gaze_weighted_score / total_weight if total_weight > 0 else 0
 total_eye_score = total_eye_weighted_score / total_weight if total_weight > 0 else 0
 
+# composition analysis
 composition_score = score_photo(img_path, area_threshold_ratio=0)
 print(f"\n構圖分數: {composition_score:.2f}")
 
-final_score = total_smile_score * 0.25 + total_eye_score * 0.25 + total_gaze_score * 0.25 + composition_score * 0.25
+# blur_detection
+blur_raw = compute_blur_score(img_path)
+blur_score = blur_score_to_100(blur_raw)
+print(f"模糊原始分數：{blur_raw:.4f}")
+print(f"模糊分數：{blur_score:.2f}")
+
+final_score = (total_smile_score * 0.20 + total_eye_score * 0.20 +
+               total_gaze_score * 0.20 + blur_score * 0.20 +
+               composition_score * 0.20)
 print(f"\n總分: {final_score:.2f}")
