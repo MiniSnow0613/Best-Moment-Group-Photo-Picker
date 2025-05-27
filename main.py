@@ -35,9 +35,9 @@ def process_single_image(img_path, face_mesh, eye_model):
     blur_raw = compute_blur_score(img_path)
     blur_score = blur_score_to_100(blur_raw)
 
-    final_score = (total_smile_score * 0.20 + total_eye_score * 0.20 +
-                   total_gaze_score * 0.20 + blur_score * 0.20 +
-                   composition_score * 0.20)
+    final_score = (total_smile_score * 0.20 + total_eye_score * 0.40 +
+                   total_gaze_score * 0.15 + blur_score * 0.15 +
+                   composition_score * 0.10)
 
     return {
         "img_path": img_path,
