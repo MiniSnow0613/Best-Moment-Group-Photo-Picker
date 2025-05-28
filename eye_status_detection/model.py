@@ -17,13 +17,11 @@ suppress_stderr_keywords([
     "All log messages before absl::InitializeLog()"
 ])
 
-# Suppress TensorFlow Lite and Mediapipe logs
-os.environ["GLOG_minloglevel"] = "2"  # Suppress INFO and WARNING logs
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"  # Suppress TensorFlow Lite logs (0=ALL, 1=INFO, 2=WARNING, 3=ERROR)
+os.environ["GLOG_minloglevel"] = "2"
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3" 
 logging.getLogger('mediapipe').setLevel(logging.ERROR)
 logging.getLogger('absl').setLevel(logging.ERROR)
 
-# Model definition
 class EyeOpennessCNN(nn.Module):
     def __init__(self):
         super().__init__()
@@ -41,9 +39,7 @@ class EyeOpennessCNN(nn.Module):
         x = x.view(x.size(0), -1)
         return self.fc(x)
 
-# Initialize Mediapipe Face Mesh
 def initialize_face_mesh():
-    """Initialize Mediapipe Face Mesh and measure initialization time"""
     try:
         start_time = time.perf_counter()
         mp_face_mesh = mp.solutions.face_mesh
@@ -60,9 +56,7 @@ def initialize_face_mesh():
         print("Ensure mediapipe is correctly installed")
         raise
 
-# Load pre-trained model
 def load_model(model_path):
-    """Load the pre-trained eye openness model and measure loading time"""
     try:
         start_time = time.perf_counter()
         if not os.path.exists(model_path):
@@ -78,9 +72,7 @@ def load_model(model_path):
         print(f"Failed to load model {model_path}: {str(e)}")
         raise
 
-# Inference function for a single image
 def infer_openness(model, image_array, face_mesh, image_name='input_image'):
-    """Predict average eye openness for a single person's image (numpy array) and measure inference time"""
     try:
         start_time = time.perf_counter()
         if not isinstance(image_array, np.ndarray) or image_array.ndim != 3 or image_array.shape[2] != 3:
@@ -102,7 +94,7 @@ def infer_openness(model, image_array, face_mesh, image_name='input_image'):
             transforms.ToTensor()
         ])
         eye_images = []
-        for eye_idx in [[33, 160, 158, 133, 153, 144], [362, 385, 387, 263, 373, 380]]:  # RIGHT_EYE_IDX, LEFT_EYE_IDX
+        for eye_idx in [[33, 160, 158, 133, 153, 144], [362, 385, 387, 263, 373, 380]]:
             points = np.array([
                 [int(face.landmark[idx].x * iw), int(face.landmark[idx].y * ih)]
                 for idx in eye_idx
@@ -132,9 +124,7 @@ def infer_openness(model, image_array, face_mesh, image_name='input_image'):
         inference_time_ms = (time.perf_counter() - start_time) * 1000
         return {'image_name': image_name, 'score': 0.0, 'inference_time_ms': inference_time_ms}
 
-# Predict eye openness (combines initialization, model loading, and inference)
 def predict_eye_openness(image_array, model_path='eye_openness_model.pth', image_name='input_image'):
-    """Initialize Mediapipe, load model, predict eye openness, and measure times"""
     try:
         face_mesh, init_time_ms = initialize_face_mesh()
         model, load_time_ms = load_model(model_path)
