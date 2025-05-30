@@ -60,7 +60,8 @@ ultralytics==8.3.120
 * Gaze score weight: 0.15
 * Blur score weight: 0.15
 * Composition score weight: 0.10
-  *(These weights can be adjusted in the configuration or main script.)*
+
+  *(These weights can be adjusted in the main script.)*
 
 ---
 
