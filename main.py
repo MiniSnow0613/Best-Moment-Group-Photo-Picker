@@ -82,3 +82,9 @@ if __name__ == "__main__":
             "blur": round(res['blur'], 2),
             "final": round(res['final'], 2),
         })
+
+    sorted_results = sorted(all_results, key=lambda x: x['final'], reverse=True)
+
+    print("\n分數前三高的照片：")
+    for i, photo in enumerate(sorted_results[:3], start=1):
+        print(f"第{i}名: {photo['img_path']}，分數: {photo['final']:.2f}")
